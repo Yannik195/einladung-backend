@@ -1,6 +1,7 @@
 package app.einladung.backend.data.event
 
 import app.einladung.backend.data.attendence.Attendance
+import app.einladung.backend.data.organizer.Organizer
 import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
@@ -19,6 +20,11 @@ class Event(
         )
         var id: Long?,
         var name: String,
+        @JsonIgnore
         @OneToMany(mappedBy = "event")
         var attendencies: Set<Attendance>,
+        @ManyToOne
+        @JoinColumn(name = "organizer_Id")
+        var organizer: Organizer
+
 )

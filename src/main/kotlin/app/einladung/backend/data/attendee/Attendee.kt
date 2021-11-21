@@ -9,17 +9,18 @@ import javax.persistence.*
 class Attendee(
         @Id
         @SequenceGenerator(
-                name = "organizer_sequence",
-                sequenceName = "organizer_sequence",
+                name = "attendee_sequence",
+                sequenceName = "attendee_sequence",
                 allocationSize = 1
         )
         @GeneratedValue(
                 strategy = GenerationType.SEQUENCE,
-                generator = "organizer_sequence"
+                generator = "attendee_sequence"
         )
         var id: Long?,
         var name: String,
         var email: String,
+        @JsonIgnore
         @OneToMany(mappedBy = "attendee")
         var attendencies: Set<Attendance>,
 )

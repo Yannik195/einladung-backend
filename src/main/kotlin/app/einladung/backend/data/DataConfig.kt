@@ -23,8 +23,8 @@ class DataConfig {
     ): CommandLineRunner {
         return CommandLineRunner { args ->
             addAttendees(attendeeRepository)
-            addEvents(eventRepository)
             addOrganizers(organizerRepository)
+            addEvents(eventRepository, organizerRepository)
             addAttendances(attendanceRepository, eventRepository, attendeeRepository)
         }
     }
@@ -32,18 +32,22 @@ class DataConfig {
     fun addAttendees(attendeeRepository: AttendeeRepository) {
         val yannik = Attendee(null, "Yannik", "yannik@mail.de", emptySet())
         val miriam = Attendee(null, "Miriam", "miriam@mail.de", emptySet())
+        val anna = Attendee(null, "Anna", "anna@mail.de", emptySet())
         attendeeRepository.save(yannik)
         attendeeRepository.save(miriam)
-    }
-
-    fun addEvents(eventRepository: EventRepository) {
-        val event = Event(null, "Silvester 2022", emptySet())
-        eventRepository.save(event)
+        attendeeRepository.save(anna)
     }
 
     fun addOrganizers(organizerRepository: OrganizerRepository) {
-        val organizer = Organizer(null, "Manuel", "manuel@mail.de", "01787359845")
-        organizerRepository.save(organizer)
+        val organizerManuel = Organizer(null, "Manuel", "manuel@mail.de", "01787359845", emptySet())
+        val organizerVivienne = Organizer(null, "Vivienne", "vivienne@mail.de", "017638438749", emptySet())
+        organizerRepository.save(organizerManuel)
+        organizerRepository.save(organizerVivienne)
+    }
+
+    fun addEvents(eventRepository: EventRepository, organizerRepository: OrganizerRepository) {
+        val event = Event(null, "Silvester 2022", emptySet(), organizerRepository.getById(1))
+        eventRepository.save(event)
     }
 
     fun addAttendances(attendanceRepository: AttendanceRepository, eventRepository: EventRepository, attendeeRepository: AttendeeRepository) {

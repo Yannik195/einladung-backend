@@ -1,5 +1,7 @@
 package app.einladung.backend.data.organizer
 
+import app.einladung.backend.data.event.Event
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity(name = "Organizer")
@@ -19,4 +21,7 @@ class Organizer(
         var name: String,
         var email: String,
         var phone: String,
+        @JsonIgnore
+        @OneToMany(mappedBy = "organizer")
+        var events: Set<Event>
 )

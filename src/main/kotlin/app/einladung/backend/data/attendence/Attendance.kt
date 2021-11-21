@@ -24,5 +24,4 @@ class Attendance(
     @ManyToOne
     @JoinColumn(name = "attendee_id")
     var attendee: Attendee,
-
-    )
+)

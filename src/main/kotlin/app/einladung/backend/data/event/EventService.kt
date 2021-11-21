@@ -1,12 +1,20 @@
 package app.einladung.backend.data.event
 
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class EventService(val eventRepository: EventRepository) {
 
     fun getEvents(): List<Event> {
         return eventRepository.findAll()
+    }
+
+    fun getEvent(id: Long): Optional<Event> {
+        if (!eventRepository.existsById(id)) {
+            throw IllegalStateException("Event with id $id does not exist")
+        }
+        return eventRepository.findById(id)
     }
 
     fun addEvent(event: Event): List<Event> {

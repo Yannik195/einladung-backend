@@ -1,8 +1,10 @@
 package app.einladung.backend.data.event
 
 import org.springframework.web.bind.annotation.*
+import java.util.*
 
 @RestController
+@CrossOrigin(origins = ["http://localhost:3000"])
 @RequestMapping("/api/v1/event")
 class EventController(val eventService: EventService) {
 
@@ -10,6 +12,12 @@ class EventController(val eventService: EventService) {
     fun getEvents(): List<Event> {
         return eventService.getEvents()
     }
+
+    @GetMapping("/{eventId}")
+    fun getEvent(@PathVariable eventId: Long): Optional<Event> {
+        return eventService.getEvent(eventId)
+    }
+
 
     @PostMapping
     fun addEvent(@RequestBody event: Event): List<Event> {

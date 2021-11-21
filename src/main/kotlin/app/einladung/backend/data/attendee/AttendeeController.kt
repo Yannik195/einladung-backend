@@ -3,6 +3,7 @@ package app.einladung.backend.data.attendee
 import org.springframework.web.bind.annotation.*
 
 @RestController
+@CrossOrigin(origins = ["http://localhost:3000"])
 @RequestMapping(path = arrayOf("api/v1/attendee"))
 class AttendeeController(val attendeeService: AttendeeService) {
 
